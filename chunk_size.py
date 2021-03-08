@@ -1,13 +1,16 @@
 import math
 
-def split_list_into_variable_parts(data: list, chunk_size: int) -> dict:
+def split_data_into_chunks(data: list, chunk_size: int) -> dict:
     chunk_dict = dict()
 
     try:
-        for i in range(math.ceil(len(data)/chunk_size)):
-            chunk_dict[f"Key{i + 1}"] = data[chunk_size*i:chunk_size*(i+1)]
+        number_of_chunks = math.ceil(len(data)/chunk_size)
     except ZeroDivisionError:
         print("Chunk size cannot be 0!")
+    else:
+        for i in range(number_of_chunks):
+            chunk_value = data[chunk_size*i:chunk_size*(i+1)]
+            chunk_dict[f"Key{i + 1}"] = chunk_value
 
     return chunk_dict
 
@@ -16,7 +19,7 @@ if __name__ == "__main__":
                  "path/to/file/6", "path/to/file/7", "path/to/file/8", "path/to/file/9", "path/to/file/10"]
     chunk_size = int(input("Enter chunk size: "))
 
-    for key, value in split_list_into_variable_parts(some_data, chunk_size).items():
+    for key, value in split_data_into_chunks(some_data, chunk_size).items():
         print(f"{key}:")
 
         for item in value:
